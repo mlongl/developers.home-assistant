@@ -42,13 +42,13 @@ An entity represents a device. There are various strategies to keep your entity 
 
 ### Polling
 
-With polling, Home Assistant will ask the entity from time to time (depending on the update interval of the component) to fetch the latest state. Home Assistant will poll an entity when the `should_poll` property returns `True` (the default value). You can either implement your update logic using `update()` or the async method `async_update()`. This method should fetch the latest state from the device and store it in an instance variable for the properties to return it.
+With polling, Home Assistant will ask the entity from time to time (depending on the update interval of the component) to fetch the latest state. Home Assistant will poll an entity when the `should_poll` property returns `True` (the default value). The entity can either implement the update logic using `update()` or the async method `async_update()`. This method should fetch the latest state from the device and store it in an instance variable for the properties to return it.
 
 ### Subscribing to updates
 
-When you subscribe to updates, your code is responsible for letting Home Assistant know that an update is available. Make sure you have the `should_poll` property return `False`.
+When the entity subscribes to updates, the entity's code is responsible for letting Home Assistant know that an update is available. The entity must have the `should_poll` property return `False`.
 
-Whenever you receive new state from your subscription, you can tell Home Assistant that an update is available by calling `schedule_update_ha_state()` or async callback `async_schedule_update_ha_state()`. Pass in the boolean `True` to the method if you want Home Assistant to call your update method before writing the update to Home Assistant.
+Whenever the entity receives a new state from the subscription, the entity can tell Home Assistant that an update is available by calling `schedule_update_ha_state()` or async callback `async_schedule_update_ha_state()`. Pass in the boolean `True` to the method if the entity wants Home Assistant to call the entity's update method before writing the update to Home Assistant.
 
 ## Generic properties
 
@@ -109,4 +109,4 @@ Called when an entity is about to be removed from Home Assistant. Example use: d
 
 ## Changing the entity model
 
-If you want to add a new feature to an entity or any of its subtypes (light, switch, etc), you will need to propose it first in our [architecture repo](https://github.com/home-assistant/architecture/issues). Only additions will be considered that are common features among various vendors.
+To add a new feature to an entity or any of its subtypes (light, switch, etc), propose it first in our [architecture repo](https://github.com/home-assistant/architecture/issues). Only additions will be considered that are common features among various vendors.
